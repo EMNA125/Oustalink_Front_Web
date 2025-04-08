@@ -23,7 +23,7 @@ export class LoginComponent {
         console.log('✅ Sign in successful', response);
 
         // Save session to localStorage and start auto-refresh
-        this.authService.storeSession(response.session);
+        this.authService.storeSession(response.session, response.user)
         // this.authService.startAutoRefresh(response.session.expires_in);
 
         // Navigate to dashboard

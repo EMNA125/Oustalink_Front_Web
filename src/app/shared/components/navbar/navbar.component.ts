@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service'; // Adjust path if needed
 
 declare var bootstrap: any;
 
@@ -11,18 +12,20 @@ declare var bootstrap: any;
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
-  userName: string = 'User'; // You can set it from a service after login
+  userName: string = '';
 
-  constructor(private router: Router, private ngZone: NgZone) {}
+  constructor(private router: Router, private ngZone: NgZone, private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Example check for login — replace with real auth logic
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      this.isLoggedIn = true;
-      const storedName = localStorage.getItem('userName');
-      if (storedName) this.userName = storedName;
-    }
+    // Subscribe to login state
+    this.authService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+      this.userName = status ? this.authService.getUserName() : '';
+    });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   navigateTo(type: string) {
@@ -53,14 +56,14 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userName');
-    this.isLoggedIn = false;
-    this.router.navigate(['/']); // Redirect to home or login
-  }
-
   goToProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  toggleDropdown(event: any) {
+    const dropdownMenu = event.target.closest('.dropdown').querySelector('.dropdown-menu');
+    if (dropdownMenu) {
+      dropdownMenu.classList.toggle('show');
+    }
   }
 }

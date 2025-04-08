@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { timer,Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 interface SignUpResponse {
   message?: string;
   user?: any;
@@ -74,6 +75,7 @@ export class AuthService {
     localStorage.removeItem('supabaseSession');
     if (this.refreshInterval) clearInterval(this.refreshInterval);
     this.router.navigate(['/login']);
+    this.loggedIn.next(false);
   }
 
   private startAutoRefresh(expiryInSeconds: number) {
@@ -97,4 +99,13 @@ export class AuthService {
       error: () => this.logout()
     });
   }
+  private loggedIn = new BehaviorSubject<boolean>(false); // Default: not logged in
+
+  isLoggedIn$ = this.loggedIn.asObservable();
+
+  login() {
+    this.loggedIn.next(true);
+  }
+
+ 
 }

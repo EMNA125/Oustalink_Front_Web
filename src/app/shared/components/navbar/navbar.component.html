@@ -44,14 +44,31 @@
             </ul>
   
            <!-- Buttons -->
-        <div class="d-flex">
-          <button class="btn btn-outline-dark me-2" (click)="navigateToLogin()">
-            <i class="bi bi-lock"></i> Sign In
-          </button>
-           <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#signupModal">
-            <i class="bi bi-person"></i> Join Us
-          </button>
-        </div>
+        <!-- Buttons or User Dropdown -->
+<div class="d-flex">
+  <ng-container *ngIf="!isLoggedIn; else loggedInTemplate">
+    <button class="btn btn-outline-dark me-2" (click)="navigateToLogin()">
+      <i class="bi bi-lock"></i> Sign In
+    </button>
+    <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#signupModal">
+      <i class="bi bi-person"></i> Join Us
+    </button>
+  </ng-container>
+
+  <ng-template #loggedInTemplate>
+    <div class="dropdown">
+      <button class="btn btn-outline-dark dropdown-toggle" type="button" id="userMenuDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle"></i> {{ userName }}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
+        <li><a class="dropdown-item" (click)="goToProfile()">Profile</a></li>
+        <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </ng-template>
+</div>
+
       </div>
     </div>
   </nav>

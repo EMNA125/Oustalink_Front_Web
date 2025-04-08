@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="signin-container">
+    <div class="signin-card">
+      <h2>Welcome</h2>
+      <p class="tagline">Enter your credentials to access your account</p>
+  
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+      <div class="form-group">
+        <label for="email">User email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="credentials.email" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="credentials.password" required>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+  
+      <div class="remember-me">
+        <label>
+          <input type="checkbox" name="rememberMe"> Remember Me
+        </label>
+        <a href="#" class="sign-in-otp">Sign in with OTP</a>
+      </div>
+  
+      <button (click)="signIn()" class="signin-button">Sign In</button>
+  
+      <div class="or-sign-in">
+        <span>Or sign in with</span>
+      </div>
+  
+      <div class="social-login">
+        <button class="google-button">
+          <img src="assets/google_logo.png" alt="Google"> Google
+        </button>
+        <button class="facebook-button">
+          <img src="assets/facebook_logo.png" alt="Facebook"> Facebook
+        </button>
+      </div>
+  
+      <div class="no-account">
+        Don't have an account? <a routerLink="/signup">Join us Today</a>
+      </div>
+    </div>
+  </div>
+  

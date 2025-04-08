@@ -1,1 +1,74 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid">
+        <!-- Logo & Brand -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="assets/img/logo.png" alt="Logo" class="brand-logo">
+            <span class="brand-text">Oustalink</span>
+        </a>
+  
+        <!-- Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-grid"></i> Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        <li><a class="dropdown-item" href="#">Category 1</a></li>
+                        <li><a class="dropdown-item" href="#">Category 2</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                        <li><a class="dropdown-item" href="#">Service 1</a></li>
+                        <li><a class="dropdown-item" href="#">Service 2</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Customers</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Providers</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Become a Provider</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Admin</a></li>
+            </ul>
+  
+           <!-- Buttons -->
+        <div class="d-flex">
+          <button class="btn btn-outline-dark me-2" (click)="navigateToLogin()">
+            <i class="bi bi-lock"></i> Sign In
+          </button>
+           <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#signupModal">
+            <i class="bi bi-person"></i> Join Us
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Signup Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signupModalLabel">Choose Sign-Up Type</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Select an option to proceed:</p>
+          <button class="btn btn-primary w-100 mb-2" (click)="navigateTo('business')">Business Sign-Up</button>
+          <button class="btn btn-secondary w-100" (click)="navigateTo('personal')">Personal Sign-Up</button>
+        </div>
+      </div>
+    </div>
+  </div>

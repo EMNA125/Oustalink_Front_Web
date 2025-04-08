@@ -1,0 +1,108 @@
+/* Custom Navbar */
+.custom-navbar {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand Styling */
+.brand-logo {
+    height: 35px;
+    margin-right: 10px;
+}
+.brand-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #F4991A;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #F4991A;
+}
+
+/* Buttons */
+.btn-outline-dark {
+    border-color: #666;
+    color: #666;
+}
+.btn-outline-dark:hover {
+    background-color: #666;
+    color: white;
+}
+.btn-gradient {
+    background: linear-gradient(90deg, #F4991A, rgb(255, 213, 0));
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+.btn-gradient:hover {
+    background: linear-gradient(90deg, #ffa033, #ff5e00);
+}
+
+/* Dropdown */
+.dropdown-menu {
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+/* Custom Modal Styling */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+.modal-header {
+    background: linear-gradient(90deg, #F4991A, rgb(255, 213, 0));
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.modal-header h5 {
+    font-weight: bold;
+}
+.modal-body {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Centering the Modal */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Buttons in Modal */
+.modal-body .btn {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.modal-body .btn-primary {
+    background: linear-gradient(90deg, #F4991A, rgb(255, 213, 0));
+    border: none;
+    color: white;
+}
+.modal-body .btn-primary:hover {
+    background: linear-gradient(90deg, #ffa033, #ff5e00);
+}
+.modal-body .btn-secondary {
+    background: #666;
+    border: none;
+    color: white;
+}
+.modal-body .btn-secondary:hover {
+    background: #444;
+}

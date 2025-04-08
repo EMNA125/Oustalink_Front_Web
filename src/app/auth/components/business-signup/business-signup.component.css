@@ -1,0 +1,200 @@
+/* Global layout */
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #5C4033, #FF8C00);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card styling */
+.signup-card {
+    background-color: #ffffffee;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Titles */
+.signup-card h2, .signup-card h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Progress bar */
+.progress-bar-container {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    height: 24px;
+}
+
+.progress-bar {
+    background: linear-gradient(to right, #A0522D, #FF8C00);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* Form containers */
+.form-group-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label styling */
+.form-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Common form control styling */
+.form-control {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #ff8c00;
+    outline: none;
+}
+
+/* Phone input styling */
+ngx-mat-intl-tel-input {
+    width: 100%;
+    .intl-tel-input {
+        width: 100%;
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #ff8c00;
+        }
+
+        .intl-tel-input .selected-flag {
+            border-radius: 8px;
+        }
+
+        .intl-tel-input .flag-dropdown {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    }
+}
+
+/* Error messages */
+.text-danger {
+    font-size: 0.85em;
+    color: #d9534f;
+    margin-top: 5px;
+}
+
+/* Navigation buttons */
+.form-navigation {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-success {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #FF8C00;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e67e00;
+}
+
+.btn-secondary {
+    background-color: #8B4513;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #6e3a11;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Alerts */
+.alert {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .form-group {
+        flex: 1 1 100%;
+    }
+
+    .form-navigation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-navigation button {
+        width: 100%;
+    }
+}

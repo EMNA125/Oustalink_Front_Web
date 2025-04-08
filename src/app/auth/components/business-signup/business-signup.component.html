@@ -1,1 +1,153 @@
-<p>business-signup works!</p>
+<div class="signup-page">
+    <div class="signup-card">
+      <h2>Service Provider Sign Up</h2>
+      <div class="progress-bar-container">
+        <div
+          class="progress-bar"
+          role="progressbar"
+          [style.width.%]="(currentStep / totalSteps) * 100"
+          attr.aria-valuenow="{{ currentStep }}"
+          aria-valuemin="0"
+          attr.aria-valuemax="{{ totalSteps }}"
+        >
+          Step {{ currentStep }} of {{ totalSteps }}
+        </div>
+      </div>
+  
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  
+      <form (ngSubmit)="submitForm()" class="signup-form">
+        <div *ngIf="currentStep === 1">
+          <h3>Personal Information</h3>
+          <div [formGroup]="personalInfoForm" class="form-group-container">
+            <div class="form-group">
+              <label for="firstname" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstname" formControlName="firstname">
+              <div *ngIf="personalInfoForm.controls['firstname'].invalid && (personalInfoForm.controls['firstname'].dirty || personalInfoForm.controls['firstname'].touched)" class="text-danger">
+                First name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastname" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastname" formControlName="lastname">
+              <div *ngIf="personalInfoForm.controls['lastname'].invalid && (personalInfoForm.controls['lastname'].dirty || personalInfoForm.controls['lastname'].touched)" class="text-danger">
+                Last name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+              <div *ngIf="personalInfoForm.controls['email'].invalid && (personalInfoForm.controls['email'].dirty || personalInfoForm.controls['email'].touched)">
+                <div *ngIf="personalInfoForm.controls['email'].errors?.['required']" class="text-danger">Email is required.</div>
+                <div *ngIf="personalInfoForm.controls['email'].errors?.['email']" class="text-danger">Invalid email format.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password">
+              <div *ngIf="personalInfoForm.controls['password'].invalid && (personalInfoForm.controls['password'].dirty || personalInfoForm.controls['password'].touched)">
+                <div *ngIf="personalInfoForm.controls['password'].errors?.['required']" class="text-danger">Password is required.</div>
+                <div *ngIf="personalInfoForm.controls['password'].errors?.['minlength']" class="text-danger">Password must be at least 6 characters long.</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="form-label">Phone</label>
+                <ngx-mat-intl-tel-input
+                  formControlName="phone"
+                  [preferredCountries]="['us', 'gb', 'ca']"
+                  [enablePlaceholder]="true"
+                ></ngx-mat-intl-tel-input>
+                <div *ngIf="personalInfoForm.controls['phone'].invalid && 
+                            (personalInfoForm.controls['phone'].dirty || 
+                             personalInfoForm.controls['phone'].touched)" class="text-danger">
+                  Phone number is required.
+                </div>
+            </div>
+              
+            <div class="form-navigation">
+              <button type="button" class="btn-primary" (click)="nextStep()" [disabled]="personalInfoForm.invalid">Next</button>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="currentStep === 2">
+          <h3>Service Details</h3>
+          <div [formGroup]="serviceDetailsForm" class="form-group-container">
+            <div class="form-group">
+              <label for="categoryId" class="form-label">Category ID</label>
+              <input type="number" class="form-control" id="categoryId" formControlName="categoryId">
+              <div *ngIf="serviceDetailsForm.controls['categoryId'].invalid && (serviceDetailsForm.controls['categoryId'].dirty || serviceDetailsForm.controls['categoryId'].touched)" class="text-danger">
+                Category ID is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="identification" class="form-label">Identification</label>
+              <input type="text" class="form-control" id="identification" formControlName="identification">
+              <div *ngIf="serviceDetailsForm.controls['identification'].invalid && (serviceDetailsForm.controls['identification'].dirty || serviceDetailsForm.controls['identification'].touched)" class="text-danger">
+                Identification is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="form-label">Description (optional)</label>
+              <textarea class="form-control" id="description" formControlName="description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="birthDate" class="form-label">Birth Date</label>
+              <input type="date" class="form-control" id="birthDate" formControlName="birthDate">
+              <div *ngIf="serviceDetailsForm.controls['birthDate'].invalid && (serviceDetailsForm.controls['birthDate'].dirty || serviceDetailsForm.controls['birthDate'].touched)" class="text-danger">
+                Birth date is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="serviceProviderType" class="form-label">Service Provider Type</label>
+              <input type="text" class="form-control" id="serviceProviderType" formControlName="serviceProviderType">
+              <div *ngIf="serviceDetailsForm.controls['serviceProviderType'].invalid && (serviceDetailsForm.controls['serviceProviderType'].dirty || serviceDetailsForm.controls['serviceProviderType'].touched)" class="text-danger">
+                Service provider type is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="identificationImage" class="form-label">Identification Image</label>
+              <input type="file" class="form-control" id="identificationImage" (change)="onIdentificationImageSelected($event)">
+            </div>
+            <div class="form-group">
+              <label for="gallery" class="form-label">Gallery</label>
+              <input type="file" class="form-control" id="gallery" multiple (change)="onGalleryFilesSelected($event)">
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="btn-secondary" (click)="prevStep()">Previous</button>
+              <button type="button" class="btn-primary ms-2" (click)="nextStep()" [disabled]="serviceDetailsForm.invalid">Next</button>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="currentStep === 3">
+            <h3>Location</h3>
+            <div [formGroup]="locationForm" class="form-group-container">
+              <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" id="latitude" formControlName="latitude" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" id="longitude" formControlName="longitude" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                <label for="km">Radius (km)</label>
+                <input type="number" formControlName="km" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="title">Location Title</label>
+                <input type="text" formControlName="title" class="form-control" />
+              </div>
+              <!-- <div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div> -->
+            </div>
+  
+            <div class="form-navigation">
+              <button type="button" class="btn-secondary" (click)="prevStep()">Previous</button>
+              <button type="submit" class="btn-success ms-2" [disabled]="locationForm.invalid">Sign Up</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>

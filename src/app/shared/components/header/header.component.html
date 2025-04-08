@@ -1,1 +1,57 @@
-<p>header works!</p>
+<header class="header header-one">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg header-nav">
+        <div class="navbar-header">
+          <!-- Mobile Menu Button -->
+          <a (click)="toggleSidebar()" id="mobile_btn" href="javascript:void(0);">
+            <span class="bar-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </a>
+          <!-- Logo -->
+          <a routerLink="/" class="navbar-brand logo">
+            <img src="assets/img/logo.svg" class="img-fluid" alt="Logo" />
+          </a>
+          <a routerLink="/" class="navbar-brand logo-small">
+            <img src="assets/img/logo-small.svg" class="img-fluid" alt="Logo" />
+          </a>
+        </div>
+  
+        <!-- Main Navigation Links -->
+        <div class="main-menu-wrapper">
+          <div class="menu-header">
+            <a routerLink="/" class="menu-logo">
+              <img src="assets/img/logo.svg" class="img-fluid" alt="Logo" />
+            </a>
+            <a (click)="hideSidebar()" id="menu_close" class="menu-close" href="javascript:void(0);">
+              <i class="fas fa-times"></i>
+            </a>
+          </div>
+  
+          <ul class="main-nav align-items-lg-center">
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/services">Services</a></li>
+            <li><a routerLink="/appointments">Appointments</a></li>
+            <li><a routerLink="/login">Login</a></li>
+          </ul>
+        </div>
+  
+        <!-- Right-hand Side Buttons -->
+        <ul class="nav header-navbar-rht">
+          <li class="nav-item pe-1">
+            <a class="nav-link btn btn-light" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">
+              <i class="ti ti-lock me-2"></i>Sign In
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-linear-primary" href="#" data-bs-toggle="modal" data-bs-target="#register-modal">
+              <i class="ti ti-user-filled me-2"></i>Join Us
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- /Header -->

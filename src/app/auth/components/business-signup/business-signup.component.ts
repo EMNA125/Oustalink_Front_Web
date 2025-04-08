@@ -68,7 +68,7 @@ export class BusinessSignupComponent implements OnInit {
       title: ['', Validators.required],
     });
 
-    this.initMap();
+   // this.initMap();
   }
 
  // Add this property to the class

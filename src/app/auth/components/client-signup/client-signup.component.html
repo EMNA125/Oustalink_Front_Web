@@ -1,24 +1,42 @@
-<div class="container">
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <h2>Registration</h2>
-      <p>Enter your credentials to access your account</p>
-  
-      <input formControlName="firstname" placeholder="First Name" />
-      <input formControlName="email" placeholder="Email" />
-      <input formControlName="phone" placeholder="Phone Number" />
-      <input formControlName="password" type="password" placeholder="Password" />
-  
-      <label>
-        <input type="checkbox" formControlName="terms" />
-        I agree to <a href="#">Terms of use</a> & <a href="#">Privacy policy</a>
-      </label>
-  
-      <button type="submit" [disabled]="!signupForm.valid">Sign Up</button>
-  
-      <div class="divider">Or sign up with</div>
-      <div id="google-button"></div>
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2 class="title">Sign Up</h2>
+    <p class="subtitle">Enter your credentials to create your account</p>
 
-          <!-- <button type="button" (click)="signUpWithFacebook()">Facebook</button> -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input formControlName="firstname" type="text" placeholder="First Name" />
+      </div>
+      <div class="form-group">
+        <input formControlName="lastname" type="text" placeholder="Last Name" />
+      </div>
+      
+      <div class="form-group">
+        <input formControlName="email" type="email" placeholder="Email" />
+      </div>
+
+      <div class="form-group">
+        <input formControlName="phone" type="tel" placeholder="Phone Number" />
+      </div>
+
+      <div class="form-group">
+        <input formControlName="password" type="password" placeholder="Password" />
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" formControlName="terms" />
+          I agree to <a href="#">Terms of use</a> & <a href="#">Privacy policy</a>
+        </label>
+      </div>
+
+      <button class="submit-btn" type="submit" [disabled]="!signupForm.valid">
+        Sign Up
+      </button>
     </form>
+
+    <div class="divider">OR</div>
+
+    <div id="google-button" class="google-button"></div>
   </div>
-  
+</div>

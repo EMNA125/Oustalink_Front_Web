@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,26 +8,35 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  credentials = {
-    email: '',
-    password: ''
-  };
-
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
 
   signIn() {
-    this.authService.signIn(this.credentials).subscribe({
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const credentials = this.loginForm.value;
+
+    this.authService.signIn(credentials).subscribe({
       next: (response) => {
         console.log('✅ Sign in successful', response);
-
-        // Save session to localStorage and start auto-refresh
-        this.authService.storeSession(response.session, response.user)
-        // this.authService.startAutoRefresh(response.session.expires_in);
-
-        // Navigate to dashboard
+        this.authService.storeSession(response.session, response.user);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {

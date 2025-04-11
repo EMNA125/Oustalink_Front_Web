@@ -52,18 +52,30 @@
               </div>
             </div>
             <div class="form-group">
-                <label for="phone" class="form-label">Phone</label>
+              <label for="phone" class="form-label">Phone</label>
                 <ngx-mat-intl-tel-input
                   formControlName="phone"
                   [preferredCountries]="['us', 'gb', 'ca']"
-                  [enablePlaceholder]="true"
+                  class="form-control"
                 ></ngx-mat-intl-tel-input>
-                <div *ngIf="personalInfoForm.controls['phone'].invalid && 
-                            (personalInfoForm.controls['phone'].dirty || 
-                             personalInfoForm.controls['phone'].touched)" class="text-danger">
-                  Phone number is required.
-                </div>
+                <!-- <ngx-intl-tel-input
+                [cssClass]="'form-control'"
+                [preferredCountries]="[CountryISO.Tunisia, CountryISO.France, CountryISO.UnitedStates]"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [selectFirstCountry]="true"
+                [selectedCountryISO]="CountryISO.Tunisia"
+                [numberFormat]="PhoneNumberFormat.International"
+                formControlName="phone"
+              ></ngx-intl-tel-input> -->
+              <div *ngIf="personalInfoForm.controls['phone'].invalid && 
+                          (personalInfoForm.controls['phone'].dirty || 
+                          personalInfoForm.controls['phone'].touched)" class="text-danger">
+                Phone number is required.
+              </div>
             </div>
+            
               
             <div class="form-navigation">
               <button type="button" class="btn-primary" (click)="nextStep()" [disabled]="personalInfoForm.invalid">Next</button>
@@ -76,18 +88,33 @@
           <div [formGroup]="serviceDetailsForm" class="form-group-container">
             <div class="form-group">
               <label for="categoryId" class="form-label">Category ID</label>
-              <input type="number" class="form-control" id="categoryId" formControlName="categoryId">
+              <select formControlName="categoryId" class="form-control">
+                <option value="">-- Select Category --</option>
+                <option *ngFor="let category of categories" [value]="category._id">
+                  {{ category.title }}
+                </option>
+              </select>              
               <div *ngIf="serviceDetailsForm.controls['categoryId'].invalid && (serviceDetailsForm.controls['categoryId'].dirty || serviceDetailsForm.controls['categoryId'].touched)" class="text-danger">
                 Category ID is required.
               </div>
             </div>
             <div class="form-group">
-              <label for="identification" class="form-label">Identification</label>
-              <input type="text" class="form-control" id="identification" formControlName="identification">
+              <label class="form-label">Identification</label>
+              <div class="identification-options">
+                <button 
+                  type="button"
+                  *ngFor="let idType of identificationTypes"
+                  [ngClass]="{'selected': serviceDetailsForm.get('identification')?.value === idType}"
+                  (click)="selectIdentification(idType)">
+                  {{ idType }}
+                </button>
+              </div>
+            
               <div *ngIf="serviceDetailsForm.controls['identification'].invalid && (serviceDetailsForm.controls['identification'].dirty || serviceDetailsForm.controls['identification'].touched)" class="text-danger">
                 Identification is required.
               </div>
             </div>
+            
             <div class="form-group">
               <label for="description" class="form-label">Description (optional)</label>
               <textarea class="form-control" id="description" formControlName="description"></textarea>
@@ -100,12 +127,23 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="serviceProviderType" class="form-label">Service Provider Type</label>
-              <input type="text" class="form-control" id="serviceProviderType" formControlName="serviceProviderType">
+              <label class="form-label">Service Provider Type</label>
+            
+              <div class="service-provider-options">
+                <button 
+                  type="button"
+                  *ngFor="let type of serviceProviderTypes"
+                  [ngClass]="{'selected': serviceDetailsForm.get('serviceProviderType')?.value === type}"
+                  (click)="selectServiceProviderType(type)">
+                  {{ type }}
+                </button>
+              </div>
+            
               <div *ngIf="serviceDetailsForm.controls['serviceProviderType'].invalid && (serviceDetailsForm.controls['serviceProviderType'].dirty || serviceDetailsForm.controls['serviceProviderType'].touched)" class="text-danger">
                 Service provider type is required.
               </div>
             </div>
+            
             <div class="form-group">
               <label for="identificationImage" class="form-label">Identification Image</label>
               <input type="file" class="form-control" id="identificationImage" (change)="onIdentificationImageSelected($event)">
@@ -122,31 +160,52 @@
         </div>
   
         <div *ngIf="currentStep === 3">
-            <h3>Location</h3>
-            <div [formGroup]="locationForm" class="form-group-container">
-              <div class="form-group">
-                <label for="latitude">Latitude</label>
-                <input type="text" id="latitude" formControlName="latitude" class="form-control" readonly>
-              </div>
-              <div class="form-group">
-                <label for="longitude">Longitude</label>
-                <input type="text" id="longitude" formControlName="longitude" class="form-control" readonly>
-              </div>
-              <div class="form-group">
-                <label for="km">Radius (km)</label>
-                <input type="number" formControlName="km" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="title">Location Title</label>
-                <input type="text" formControlName="title" class="form-control" />
-              </div>
-              <!-- <div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div> -->
+          <h3>Location Information</h3>
+          <div [formGroup]="locationForm" class="form-group-container">
+            <div class="form-group">
+              <label for="title" class="form-label">Location Title (Auto-filled from address)</label>
+              <input type="text" class="form-control" formControlName="title" readonly />
             </div>
+        
+            <div class="form-group">
+              <label class="form-label">Service Radius (km): {{ locationForm.get('km')?.value }}</label>
+              <input
+                type="range"
+                min="1"
+                max="50"
+                step="1"
+                [value]="locationForm.get('km')?.value"
+                (input)="onSliderChange($event)"
+                class="form-range"
+              />
+            </div>
+        
+            <div class="form-group d-flex gap-2">
+              <button type="button" class="btn btn-outline-primary" (click)="initLocation()">
+                📍 Use My Current Location
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="initMap()">
+                🗺️ Select on Map
+              </button>
+            </div>
+        
+            <div class="form-group">
+              <label for="latitude">Latitude</label>
+              <input type="text" class="form-control" formControlName="latitude" readonly />
+            </div>
+        
+            <div class="form-group">
+              <label for="longitude">Longitude</label>
+              <input type="text" class="form-control" formControlName="longitude" readonly />
+            </div>
+          </div>
+        
+          <div id="map" style="height: 400px; margin-top: 20px;"></div>
+  <div class="form-navigation">
+    <button type="button" class="btn-secondary" (click)="prevStep()">Previous</button>
+    <button type="submit" class="btn-success ms-2" [disabled]="locationForm.invalid" >Sign Up</button>
   
-            <div class="form-navigation">
-              <button type="button" class="btn-secondary" (click)="prevStep()">Previous</button>
-              <button type="submit" class="btn-success ms-2" [disabled]="locationForm.invalid">Sign Up</button>
-            </div>
+</div>
         </div>
       </form>
     </div>

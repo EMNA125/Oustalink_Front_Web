@@ -56,8 +56,11 @@
 
         <ng-template #loggedInTemplate>
           <div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="userMenuDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleDropdown($event)">
+            <button class="btn btn-outline-dark dropdown-toggle"
+                    type="button"
+                    id="userMenuDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
               <i class="bi bi-person-circle"></i> {{ userName }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">

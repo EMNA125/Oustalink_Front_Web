@@ -84,7 +84,7 @@
     outline: none;
 }
 
-/* Phone input styling */
+/* Phone input styling
 ngx-mat-intl-tel-input {
     width: 100%;
     .intl-tel-input {
@@ -109,8 +109,89 @@ ngx-mat-intl-tel-input {
             overflow-y: auto;
         }
     }
+} */
+.identification-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+  
+  .identification-options button {
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .identification-options button.selected {
+    background-color: #f7c87b;
+    border-color: #f7c87b;
+    color: black;
+  }
+  .service-provider-options button {
+    margin: 5px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .service-provider-options button.selected {
+    background-color: #ffa500;
+    color: white;
+    border-color: #ffa500;
+  }
+  
+  /* Phone input wrapper */
+  .intl-tel-input {
+    position: relative;
+    width: 100%;
+    z-index: 9999; /* Add a high z-index to ensure it's on top */
 }
 
+  
+
+/* Input field */
+.intl-tel-input input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+/* Focus state */
+.intl-tel-input input:focus {
+    border-color: #ff8c00;
+    outline: none;
+}
+
+
+/* Country flag styling */
+.intl-tel-input .selected-flag {
+    border-radius: 8px;
+}
+
+/* Dropdown list */
+.intl-tel-input .country-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;  /* Increase z-index */
+    background: white;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+
+  
 /* Error messages */
 .text-danger {
     font-size: 0.85em;

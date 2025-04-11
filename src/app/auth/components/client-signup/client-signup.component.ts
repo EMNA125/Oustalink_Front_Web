@@ -24,11 +24,13 @@ export class ClientSignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.fb.group({
       firstname: ['', Validators.required],
+      lastname: ['', Validators.required], // 👈 new field
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       password: ['', Validators.required],
       terms: [false, Validators.requiredTrue],
     });
+    
 
     // 👇 Initialize Google Sign-In
     google.accounts.id.initialize({
@@ -76,11 +78,13 @@ export class ClientSignupComponent implements OnInit {
       const formData = this.signupForm.value;
       const clientData = {
         firstname: formData.firstname,
+        lastname: formData.lastname, // 👈 include lastname here
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
         googleid: '',
       };
+      
       const location = { city: 'default' };
 
       this.authService.signUpClient(clientData, location).subscribe(

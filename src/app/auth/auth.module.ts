@@ -12,6 +12,9 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import {  ClientSignupComponent } from './components/client-signup/client-signup.component'
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import {  LoginComponent } from './components/login/login.component'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [BusinessSignupComponent,ClientSignupComponent,LoginComponent],
@@ -23,7 +26,10 @@ import {  LoginComponent } from './components/login/login.component'
     FormsModule,
     ReactiveFormsModule,
     NgxMatIntlTelInputComponent,
-    SocialLoginModule
+    SocialLoginModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgxIntlTelInputModule
   ],
   providers: [
     {
